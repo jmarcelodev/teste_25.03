@@ -14,4 +14,14 @@ n_jobs=-1: Isso utiliza todos os núcleos do processador para paralelizar o trei
 random_state=42: Isso define a semente aleatória para garantir que os resultados sejam reproduzíveis.
 rfr.fit(X_train, y_train), o algoritmo está sendo treinando com os padrões de divisão feitos anteriormente
 
-
+No trecho seguinte, foi feito um gráfico de barras horizontais para se verificar a importância das variaveis no algoritmo treinado.
+feat_list = X.columns.values: obtem uma lista dos nomes das colunas do DataFrame X, que representam os recursos que foram utilizados para treinar o modelo.
+feat_imp = rfr.feature_importances_: obtem as importâncias dos recursos do modelo RandomForestRegressor que foram treinados anteriormente. Isso fornece uma medida de quão importante cada recurso foi para fazer previsões.
+sort_idx = np.argsort(feat_imp):se ordena os índices dos recursos com base em suas importâncias em ordem crescente.
+plt.figure(figsize=(5,7)):  cria uma nova figura para o gráfico com dimensões 5x7 polegadas
+plt.barh(range(len(sort_idx)),feat_imp[sort_idx], align='center'): cria um gráfico de barras horizontais. O eixo y representa os recursos ordenados por importância, enquanto o comprimento das barras representa a importância de cada recurso.
+plt.yticks(range(len(sort_idx)),feat_list[sort_idx]): Esta linha define os rótulos do eixo y como os nomes dos recursos ordenados por importância.
+plt.xlabel('Importancia dos Fatores'): Você está definindo o rótulo do eixo x como "Importância dos Fatores".
+plt.title('Fatores importantes'): Esta linha define o título do gráfico como "Fatores importantes".
+plt.draw(): Este comando desenha o gráfico.
+plt.show(): Este comando exibe o gráfico na tela.
