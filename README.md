@@ -25,3 +25,7 @@ plt.xlabel('Importancia dos Fatores'): Você está definindo o rótulo do eixo x
 plt.title('Fatores importantes'): Esta linha define o título do gráfico como "Fatores importantes".
 plt.draw(): Este comando desenha o gráfico.
 plt.show(): Este comando exibe o gráfico na tela.
+
+No trecho seguinte, o algoritmo RandomForest fará as predições para os dados do df2.
+Remove as mesmas colunas que foram removidas anteriormente do DataFrame df1 durante o treinamento do modelo, mantendo apenas os recursos relevantes para fazer previsões.
+O método .predict() do modelo RandomForestRegressor (rfr) para fazer previsões com base nos dados fornecidos. O argumento passado para este método é o conjunto de dados de teste pré-processado, contendo apenas os recursos relevante
