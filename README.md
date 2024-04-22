@@ -1,3 +1,5 @@
+Caso exita uma dúvida quanto ao código, aqui está descrito tudo que foi feito. Se a dúvida persistir, envie o um email para o endereço: joao.m.filho@ufv.br. Te responderei o mais rápido possivel 
+
 Dados e scrip da analise feita no dia 25 de março de 2024. Na planilha 'valid' estão os dados referentes aos talhões: 607_3; 605_7; 606_6; 605_2. Os demais foram usados para treinar o algoritmo presentes na planilha 'train_test'
 
 Primeiramente, foi importando todas as bibliotecas que seriam utilizadas para a manipulação dos dados.
@@ -8,7 +10,7 @@ Depois o conjunto de dados df1 foi dividido em que 70% foi para o treinamento e 
 
 Foi importado a classe RandomForestRegression da biblioteca sklearn
 
-Alguns parametros especificos foram organizados. min_samples_leaf=30: Esse parâmetro define o número mínimo de amostras necessárias para serem consideradas em um nó folha da árvore. Isso ajuda a evitar o excesso de ajuste (overfitting) ao limitar a complexidade da árvore.
+Alguns parametros especificos foram organizados. min_samples_leaf=30: Esse parâmetro define o número mínimo de amostras necessárias para serem consideradas em um nó folha da árvore.
 n_estimators=1000: Este é o número de árvores na floresta.
 n_jobs=-1: Isso utiliza todos os núcleos do processador para paralelizar o treinamento, o que pode acelerar o processo.
 random_state=42: Isso define a semente aleatória para garantir que os resultados sejam reproduzíveis.
@@ -34,4 +36,19 @@ Na próxima parte, o código calcula algumas métricas de avaliação do desempe
 
 Para adicionar os valores preditos a planilha 'valid.csv' e se comparar os resultados e demais processamentos, foi adiciona uma nova coluna chamada 'Prod_pred'.df2['Prod_pred'] = y_pred: Isso adiciona uma nova coluna chamada 'Prod_pred' ao DataFrame df2 e atribui a ela as previsões feitas pelo modelo (y_pred). Assim, cada linha do DataFrame df2 terá agora uma previsão correspondente à produtividade. df2.to_csv('valid.csv', index=False): Isso salva o DataFrame df2, com a nova coluna 'Prod_pred', de volta ao arquivo CSV "valid.csv"
 
+Para finalizar, foi plotado um gráfico de dispersão com uma linha de regressão para visualizar a relação entre os valores observados de produtividade com os preditos.
+Para o cálculo da densidade de pontos foi feito, xy = np.vstack([x, y]): Combina os valores observados (x) e previstos (y) em uma matriz.
+z = gaussian_kde(xy)(xy): Calcula a densidade dos pontos no gráfico usando uma estimativa de densidade kernel gaussiana.
+Para ordenar os pontos, idx = z.argsort(): Ordena os índices dos pontos com base na densidade calculada.
+x, y, z = x[idx], y[idx], z[idx]: Ordena os valores observados, previstos e a densidade com base nos índices ordenados.
+Para o tamanho dos pontos,sizes = np.linspace(1, 30, len(x)): Gera tamanhos de pontos variáveis com base no número de pontos.
+Plotagem, plt.scatter(x, y, c=z, s=sizes): Plota o gráfico de dispersão com tamanhos de pontos variáveis e coloridos de acordo com a densidade.
+Para o cálculo e plotagem da linha de regressão, coefficients = np.polyfit(x, y, 1): Calcula os coeficientes para uma linha de regressão linear.
+poly_function = np.poly1d(coefficients): Gera uma função polinomial a partir dos coeficientes.
+plt.plot(x, poly_function(x), color='black', linewidth=2, label='Regression Line'): Plota a linha de regressão.
+Barra de cores, cb = plt.colorbar(): Cria uma barra de cores para indicar a densidade.
+cb.set_ticks([0, 0.5, 1]) e cb.set_ticklabels(['0', '0.5', '1']): Define os rótulos da barra de cores.
+cb.set_label('Min Densidade Máx'): Define o rótulo da barra de cores.
+Configurar os eixos e exibição do gráfico, plt.xlabel('Produtividade Observados(t/ha)') e plt.ylabel('Produtividade Predita (t/ha)'): Define os rótulos dos eixos x e y.
+plt.show(): Exibe o gráfico.
 
