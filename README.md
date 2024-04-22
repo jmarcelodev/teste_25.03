@@ -29,3 +29,5 @@ plt.show(): Este comando exibe o gráfico na tela.
 No trecho seguinte, o algoritmo RandomForest fará as predições para os dados do df2.
 Remove as mesmas colunas que foram removidas anteriormente do DataFrame df1 durante o treinamento do modelo, mantendo apenas os recursos relevantes para fazer previsões.
 O método .predict() do modelo RandomForestRegressor (rfr) para fazer previsões com base nos dados fornecidos. O argumento passado para este método é o conjunto de dados de teste pré-processado, contendo apenas os recursos relevante
+
+Na próxima parte, o código calcula algumas métricas de avaliação do desempenho do seu modelo RandomForestRegressor em relação às previsões feitas para o conjunto de dados de validação (df2). mae = metrics.mean_absolute_error(df2['produtivid'], y_pred): Isso calcula o erro médio absoluto (MAE), rmse np.sqrt(metrics.mean_squared_log_error(df2['produtivid'], y_pred)): Isso calcula a raiz do erro quadrático médio (RMSE) logarítmico, r2 = r2_score(df2['produtivid'], y_pred): Isso calcula o coeficiente de determinação (R²)
